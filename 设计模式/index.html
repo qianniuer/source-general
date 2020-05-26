@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>多态</title>
+</head>
+<body>
+    <script>
+
+        /* 1. 动态类型语言 */ 
+        const duck = {
+            duckSinging: () => {
+                console.log('嘎嘎嘎嘎嘎')
+            }
+        }
+        const chicken = {
+            duckSinging: () => {
+                console.log('咯咯咯咯咯')
+            }
+        }
+        let choir = []; // 合唱团
+        const joinChoir = (animal) => {
+            if(animal && typeof animal.duckSinging === 'function'){
+                choir.push(animal)
+                console.log( '􏹿􏺀􏺁􏰞􏱟􏹅􏹆恭喜加入合唱团' );
+                console.log( '􏱟􏹅􏹆􏳑􏱨􏹄􏹒􏲍􏰲合唱团已有成员数量:' + choir.length );
+            }
+        }
+        joinChoir(duck)
+        joinChoir(chicken)
+
+        /* 2. 多态 */
+        const makeSound = (animal) => {
+            if(animal instanceof Duck){
+                console.log('嘎嘎嘎嘎嘎')
+            } else if(animal instanceof Chicken){
+                console.log('咯咯咯咯咯')
+            }
+        }
+        let Duck = () => {};
+        let Chicken = () => {};
+
+        makeSound(new Duck());
+        makeSound(new Chicken);
+
+        /* 2.1. 对象的多态性 */
+    </script>
+</body>
+</html>

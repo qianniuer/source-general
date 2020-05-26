@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    .array 数组
+    .bool 布尔值
+    .func 函数
+    .number 数字
+    .object 对象
+    .string 字符串
+    .symbol 符号
+    .node 任何东西都可以被渲染:numbers, strings, elements,或者是包含这些类型的数组(或者是片段)。
+    .element React元素
+    .instanceOf(Message) 类的一个实例
+    .oneOf(['News', 'Photos']) 枚举值
+    .oneOfType([PropTypes.string,PropTypes.number,PropTypes.instanceOf(Message)]) 多种类型其中之一
+    .arrayOf(PropTypes.number) 某种类型的数组
+    .objectOf(PropTypes.number) 某种类型的对象
+    .shape({color: PropTypes.string,fontSize: PropTypes.number}) 特定形式的对象
+    .func.isRequired 可以使用 `isRequired' 链接上述任何一个，以确保在没有提供 prop 的情况下显示警告
+    .any.isRequired 任何数据类型的值
+    function(props, propName, componentName) { return new Error()} 自定义的验证器
+    .arrayOf(function(propValue, key, componentName, location, propFullName) {}
+</body>
+</html>

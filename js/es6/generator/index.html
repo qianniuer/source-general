@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Generator基本用法</title>
+</head>
+<body>
+    <script type="text/javascript">
+        //每个遍历器之间互不干扰，作用域独立
+        function* g() {
+            var o = 1;
+            yield o++;
+            yield o++;
+            yield o++;
+        }
+        var gen = g();
+        console.log(gen.next().value); // 1
+        var xxx = g();
+        console.log(gen.next().value); // 2
+        console.log(xxx.next().value); // 1
+        console.log(gen.next().value); // 3
+     
+        //next方法参数的作用，是覆盖掉上一个yield语句的值
+        function* g2(){
+            var o = 1;
+            var a = yield o++;
+            console.log('a = ' + a); // a=11
+            var b = yield o++;
+        }
+        var gen = g2();
+        console.log(gen.next().value);// { value: 2, done: false}
+        console.log('------');
+        console.log(gen.next(11));
+
+    // for...of循环可以自动遍历Generator函数时生成的Iterator对象，且此时不再需要调用next方法
+    // 下面代码使用for...of循环，依次显示5个yield语句的值。这里需要注意，一旦next方法的返回对
+    // 象的done属性为true，for...of循环就会中止，且不包含该返回对象，所以上面代码的return语句
+    // 返回的6，不包括在for...of循环之中
+    function* foo() {
+        yield 1;
+        yield 2;
+        yield 3;
+        yield 4;
+        yield 5;
+        return 6;
+    }
+ 
+    let a = foo();
+    for (let v of a) {
+        console.log(v);
+    }
+    // 1 2 3 4 5
+
+    //Generator函数返回的遍历器对象，还有一个return方法，可以返回给定的值，并且终结遍历Generator函数
+    //就是说，return的参数值覆盖本次yield语句的返回值，并且提前终结遍历，即使后面还有yield语句也一律无视
+    function* gen2() {
+        yield 1;
+        yield 2;
+        yield 3;
+    }
+    var g = gen2();
+    console.log(g.next());          // { value: 1, done: false }
+    console.log(g.return('foo'));   // { value: "foo", done: true }
+    console.log(g.next());          // { value: undefined, done: true}
+ 
+    //在Generater函数内部，调用另一个Generator函数,用yield*语句
+    function* foo2() {
+        yield 'a';
+        yield 'b';
+    }
+ 
+    function* bar() {
+        yield 'x';
+        yield* foo2();
+        yield 'y';
+    }
+ 
+    for (let v of bar()){
+        console.log(v);
+    }
+    // "x"
+    // "a"
+    // "b"
+    // "y"
+ 
+</script>
+    
+</body>
+</html>

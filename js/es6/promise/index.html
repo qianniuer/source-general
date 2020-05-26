@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>promise</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // // 事件环
+    // let p = new Promise((resolve, reject) => { // 默认promise种的executor是同步执行的
+    //     // reject('买')
+    //     throw new Error()
+    // })
+    // p.then((succeed)=>{ // 成功的原因
+    //     console.log(succeed, 'succeed')
+    // },(error)=>{ // 失败的原因
+    //     console.log(error, 'error')
+    // })
+    MyPromise(fn){
+        let self = this; // 缓存当前promise实例
+        self.value = null; // 成功时的值
+        self.error = null; // 失败时的值
+        self.onFulfilled = null; //成功的回调函数
+        self.onRekected = null; //失败的回调函数
+        
+        resolve(value){
+            self.value = value;
+            self.onFulfilled(self.value);
+        }
+        reject(error){
+            self.error = error;
+            self.onRekected(self.error)
+        }
+        fn(resolve, reject)
+    };
+    MyPromise.prototype.then = function(onFulfilled, onRekected){
+        // 在这里给promise实例注册成功和失败回调
+        this.onFulfilled = onFulfilled;
+        this.onRekected = onRekected;
+    }
+    module.exports = MyPromise
+</script>
+</html>
